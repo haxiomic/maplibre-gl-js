@@ -416,7 +416,7 @@ class Painter {
         }
 
         // Rebind the main framebuffer now that all offscreen layers have been rendered:
-        this.context.bindFramebuffer.set(this._fieldIo_targetFbo);
+        this.context.bindFramebuffer.set(this._fieldIo_targetFbo.framebuffer);
 
         // Clear buffers in preparation for drawing to the main framebuffer
         this.context.clear({color: options.showOverdrawInspector ? Color.black : Color.transparent, depth: 1});
