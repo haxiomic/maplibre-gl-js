@@ -358,6 +358,9 @@ class Map extends Camera {
      * Find more details and examples using `touchPitch` in the {@link TouchPitchHandler} section.
      */
     touchPitch: TouchPitchHandler;
+    
+    _fieldIo_explicitRender: boolean;
+    _fieldIo_needsRender: boolean;
 
     constructor(options: MapOptions) {
         PerformanceUtils.mark(PerformanceMarkers.create);
@@ -483,6 +486,9 @@ class Map extends Camera {
         this.on('dataloading', (event: MapDataEvent) => {
             this.fire(new Event(`${event.dataType}dataloading`, event));
         });
+
+        this._fieldIo_explicitRender = false;
+        this._fieldIo_needsRender = true;
     }
 
     /*
@@ -2554,6 +2560,8 @@ class Map extends Camera {
             PerformanceUtils.mark(PerformanceMarkers.fullLoad);
         }
 
+        this._fieldIo_needsRender = false;
+
         return this;
     }
 
@@ -2610,7 +2618,10 @@ class Map extends Camera {
      * @see [Add an animated icon to the map](https://maplibre.org/maplibre-gl-js-docs/example/add-image-animated/)
      */
     triggerRepaint() {
-        if (this.style && !this._frame) {
+        if (this.style) {
+            this._fieldIo_needsRender = true;
+        }
+        if (this.style && !this._frame && !this._fieldIo_explicitRender) {
             this._frame = browser.frame((paintStartTimeStamp: number) => {
                 PerformanceUtils.frame(paintStartTimeStamp);
                 this._frame = null;
