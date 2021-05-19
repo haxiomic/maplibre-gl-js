@@ -126,10 +126,13 @@ class Painter {
     debugOverlayTexture: Texture;
     debugOverlayCanvas: HTMLCanvasElement;
 
+    _fieldIo_targetFbo: ?WebGLFramebuffer;
+
     constructor(gl: WebGLRenderingContext, transform: Transform) {
         this.context = new Context(gl);
         this.transform = transform;
         this._tileTextures = {};
+        this._fieldIo_targetFbo = null;
 
         this.setup();
 
@@ -413,7 +416,7 @@ class Painter {
         }
 
         // Rebind the main framebuffer now that all offscreen layers have been rendered:
-        this.context.bindFramebuffer.set(null);
+        this.context.bindFramebuffer.set(this._fieldIo_targetFbo);
 
         // Clear buffers in preparation for drawing to the main framebuffer
         this.context.clear({color: options.showOverdrawInspector ? Color.black : Color.transparent, depth: 1});
