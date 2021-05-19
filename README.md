@@ -1,3 +1,19 @@
+Fork with customizations to suit a specific project
+
+- Compile with `npm run release`
+
+### Changes
+**Map**
+added
++ _fieldIo_explicitRender
++ _fieldIo_needsRender
+
+**Map.painter**
+added
++ _fieldIo_targetFbo
+
+----------
+
 # MapLibre GL
 
 **MapLibre GL** is a community led fork derived from [mapbox-gl-js](https://github.com/mapbox/mapbox-gl-js) prior to their switch to a non-OSS license.
