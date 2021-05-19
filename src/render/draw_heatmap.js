@@ -65,8 +65,10 @@ function drawHeatmap(painter: Painter, sourceCache: SourceCache, layer: HeatmapS
         context.viewport.set([0, 0, painter.width, painter.height]);
 
     } else if (painter.renderPass === 'translucent') {
-        painter.context.setColorMode(painter.colorModeForRenderPass());
-        renderTextureToMap(painter, layer);
+        if (layer._fieldIo_renderToMap) {
+            painter.context.setColorMode(painter.colorModeForRenderPass());
+            renderTextureToMap(painter, layer);
+        }
     }
 }
 

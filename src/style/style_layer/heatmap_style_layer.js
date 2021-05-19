@@ -15,6 +15,7 @@ import type {LayerSpecification} from '../../style-spec/types';
 
 class HeatmapStyleLayer extends StyleLayer {
 
+    _fieldIo_renderToMap: boolean;
     heatmapFbo: ?Framebuffer;
     colorRamp: RGBAImage;
     colorRampTexture: ?Texture;
@@ -29,6 +30,8 @@ class HeatmapStyleLayer extends StyleLayer {
 
     constructor(layer: LayerSpecification) {
         super(layer, properties);
+
+        this._fieldIo_renderToMap = true;
 
         // make sure color ramp texture is generated for default heatmap color too
         this._updateColorRamp();
