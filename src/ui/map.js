@@ -2431,6 +2431,8 @@ class Map extends Camera {
      * @private
      */
     _render(paintStartTimeStamp: number) {
+        this._fieldIo_needsRender = false; // may be set to true again during frame
+        
         let gpuTimer, frameStartTime = 0;
         const extTimerQuery = this.painter.context.extTimerQuery;
         if (this.listens('gpu-timing-frame')) {
@@ -2559,8 +2561,6 @@ class Map extends Camera {
             this._fullyLoaded = true;
             PerformanceUtils.mark(PerformanceMarkers.fullLoad);
         }
-
-        this._fieldIo_needsRender = false;
 
         return this;
     }
